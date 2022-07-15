@@ -1,0 +1,52 @@
+import pandas as pd
+import numpy as np
+a=[6,14,10,8,11]
+b=[14,9,12,10,14]
+c=[10,12,7,15,11]
+d=[9,12,8,10,11]
+#e=[11,14,11,11]
+a=np.array(a)
+b=np.array(b)
+c=np.array(c)
+d=np.array(d)
+#e=np.array(e)
+n=len(a)+len(b)+len(c)+len(d)#+len(e)
+rss=sum(a**2)+sum(b**2)+sum(c**2)+sum(d**2)#+sum(e**2)
+cf=(sum(a)+sum(b)+sum(c)+sum(d))**2/(n)
+sst=rss-cf
+sstr=(sum(a)**2)/len(a)+(sum(b)**2)/len(b)+(sum(c)**2)/len(c)+(sum(d)**2)/len(d)-cf
+sse=sst-sstr
+
+dft=4-1
+dft1=n-4
+
+
+mst=sstr/dft
+mse=sse/dft1
+
+
+
+f_cal=mst/mse
+
+if f_cal<1:
+    f_cal=mse/mst
+
+print("F_cal is ",f_cal)
+
+
+
+import scipy.stats
+
+#find F critical value
+f_tab_value=scipy.stats.f.ppf(q=1-.05, dfn=dft, dfd=dft1)
+
+print(f_tab_value)
+
+if(f_tab_value<f_cal):
+    print("Reject hypothesis")
+else:
+    print("Accept NULL hypothesis")
+    
+
+
+print(scipy.stats.f_oneway(a,b,c))
